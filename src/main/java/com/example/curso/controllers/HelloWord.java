@@ -10,7 +10,7 @@ public class HelloWord {
 
     @GetMapping
     public String helloWord() {
-        return "Hello Word";
+        return "Hello word";
     }
 
 }
