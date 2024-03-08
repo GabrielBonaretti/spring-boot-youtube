@@ -4,15 +4,16 @@ import com.example.curso.domain.dto.remedio.DadosCadastroRemedio;
 import com.example.curso.domain.enums.Laboratorio;
 import com.example.curso.domain.enums.Via;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import java.lang.reflect.Type;
 import java.time.LocalDate;
 
 @Table(name = "remedio")
 @Entity(name = "remedio")
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -36,5 +37,15 @@ public class Remedio {
         this.quantidade = dados.quantidade();
         this.validade = dados.validade();
         this.laboratorio = dados.laboratorio();
+    }
+
+    public void atualizarInformacoes(DadosCadastroRemedio dados) {
+        this.nome = dados.nome();
+        this.via = dados.via();
+        this.lote = dados.lote();
+        this.quantidade = dados.quantidade();
+        this.validade = dados.validade();
+        this.laboratorio = dados.laboratorio();
+
     }
 }
