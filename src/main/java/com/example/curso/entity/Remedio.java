@@ -9,7 +9,7 @@ import lombok.*;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 
-@Table(name = "remedios")
+@Table(name = "remedio")
 @Entity(name = "remedio")
 @Getter
 @Setter
