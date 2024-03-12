@@ -50,7 +50,11 @@ public class Remedio {
         this.laboratorio = dados.laboratorio();
     }
 
-    public void deletarRemedio() {
+    public void desativarRemedio() {
         this.ativo = false;
+    }
+
+    public void ativarRemedio() {
+        this.ativo = true;
     }
 }

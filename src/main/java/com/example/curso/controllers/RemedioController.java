@@ -36,12 +36,24 @@ public class RemedioController {
         remedio.atualizarInformacoes(dados);
     }
 
-    @DeleteMapping("/{id}")
-    @Transactional
-    public void deletar(@PathVariable Long id) {
+//    @DeleteMapping("/{id}")
+//    @Transactional
+//    public void deletar(@PathVariable Long id) {
 //        repository.deleteById(id);
+//
+//    }
 
+    @DeleteMapping("/id")
+    @Transactional
+    public void desativar(@PathVariable Long id) {
         var remedio = repository.getReferenceById(id);
-        remedio.deletarRemedio();
+        remedio.desativarRemedio();
+    }
+
+    @PatchMapping("/id")
+    @Transactional
+    public void ativar(@PathVariable Long id) {
+        var remedio = repository.getReferenceById(id);
+        remedio.ativarRemedio();
     }
 }
