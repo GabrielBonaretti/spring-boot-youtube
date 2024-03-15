@@ -8,6 +8,9 @@ import com.example.curso.repository.RemedioRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,8 +36,8 @@ public class RemedioController {
     }
 
     @GetMapping
-    public ResponseEntity<List<DadosListagemRemedio>> listar() {
-        var lista = repository.findAllByAtivoTrue().stream().map(DadosListagemRemedio::new).toList();
+    public ResponseEntity<Page<DadosListagemRemedio>> listar(Pageable paginacao) {
+        Page<DadosListagemRemedio> lista = repository.findAllByAtivoTrue(paginacao).map(DadosListagemRemedio::new);
         return ResponseEntity.ok(lista);
     }
 
@@ -66,6 +69,12 @@ public class RemedioController {
     public ResponseEntity<DadosDetalhamentoRemedio> ativar(@PathVariable Long id) {
         var remedio = repository.getReferenceById(id);
         remedio.ativarRemedio();
+        return ResponseEntity.ok(new DadosDetalhamentoRemedio(remedio));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DadosDetalhamentoRemedio> detalhar(@PathVariable Long id) {
+        var remedio = repository.getReferenceById(id);
         return ResponseEntity.ok(new DadosDetalhamentoRemedio(remedio));
     }
 }
