@@ -1,7 +1,9 @@
 package com.example.curso.controllers;
 
+import com.example.curso.domain.dto.token.DadosTokenJWT;
 import com.example.curso.domain.dto.usuarios.DadosAutenticacao;
-import com.example.curso.repository.UsuarioRepository;
+import com.example.curso.entity.Usuario;
+import com.example.curso.service.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +21,14 @@ public class AutenticacaoController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping
     public ResponseEntity<?> efetuarLogin(@RequestBody @Valid DadosAutenticacao dadosAutenticacao) {
         var token = new UsernamePasswordAuthenticationToken(dadosAutenticacao.email(), dadosAutenticacao.senha());
         var autenticacao = authenticationManager.authenticate(token);
-        return ResponseEntity.ok(token);
+        var tokenJWT = tokenService.gerarToken((Usuario) autenticacao.getPrincipal());
+        return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
     }
 }
