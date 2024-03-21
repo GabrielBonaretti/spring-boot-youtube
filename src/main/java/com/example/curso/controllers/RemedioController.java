@@ -5,6 +5,7 @@ import com.example.curso.domain.dto.remedio.DadosDetalhamentoRemedio;
 import com.example.curso.domain.dto.remedio.DadosListagemRemedio;
 import com.example.curso.entity.Remedio;
 import com.example.curso.repository.RemedioRepository;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/remedios")
+@SecurityRequirement(name = "bearer-key")
 public class RemedioController {
 
     @Autowired
