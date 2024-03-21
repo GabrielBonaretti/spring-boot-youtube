@@ -29,6 +29,16 @@ public class TokenService {
                 .sign(algorithm);
     }
 
+    public String getSubject(String tokenJWT) throws JWTCreationException {
+        var algorithm = Algorithm.HMAC256(secret);
+        return JWT
+                .require(algorithm)
+                .withIssuer("Remedios_api")
+                .build()
+                .verify(tokenJWT)
+                .getSubject();
+    }
+
     private Instant dataExpire() {
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
     }
